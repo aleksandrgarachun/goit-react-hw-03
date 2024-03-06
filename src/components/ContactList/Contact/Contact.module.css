@@ -1,0 +1,23 @@
+.contactCover {
+    padding: 15px;
+    display: flex;
+    position: relative;
+}
+.contactInfo {
+    text-align: left;
+}
+.contactInfo:not(:last-child) {
+    margin-bottom: 7px;
+}
+
+.contactIcons {
+    margin-right: 5px;
+}
+.contactButton {
+    position: absolute;
+    top: 23px;
+    right: 10px;
+    border: 1px solid black;
+    color: black;
+    background-color: rgb(226, 222, 222);
+}

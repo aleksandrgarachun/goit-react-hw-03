@@ -1,24 +1,19 @@
 import Contact from "./Contact/Contact";
-//import css from "./ContactList.module.css";
-//import PropTypes from "prop-types";
-
-
+import css from "./ContactList.module.css";
 
 
 const ContactList = ({ contacts, onDelete }) => {
     return (
-        <ul>
-            {contacts.map((contact) => (
-                <li key={contact.id}>
-                    <Contact {...contact} onDelete={onDelete} />
-                </li>
-            ))}
-        </ul>
+        <div className={css.contactList}>
+            <ul className={css.listUl}>
+                {contacts.map((contact) => (
+                    <li className={css.listLi} key={contact.id}>
+                        <Contact {...contact} onDelete={onDelete} />
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 }
 
 export default ContactList;
-
-
-
-

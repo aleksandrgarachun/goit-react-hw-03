@@ -1,25 +1,49 @@
-//import css from "./ContactForm.module.css"
+import css from "./ContactForm.module.css"
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { nanoid } from 'nanoid';
+
 const ContactForm = ({ onAdd }) => {
-    const handleSubmit = e => {
-        e.preventDefault();
-        const name = e.target.elements.text.value;
-        const number = e.target.elements.number.value;
-        onAdd({
-            id: Date.now().toString(),
-            name,
-            number
-        });
-        e.target.reset();
-    };
+    const validationSchema = Yup.object({
+        name: Yup.string()
+            .required('Name is required')
+            .min(3, 'Name must be at least 3 characters')
+            .max(50, 'Name must be less than 50 characters'),
+        number: Yup.string()
+            .required('Number is required')
+            .min(3, 'Number must be at least 3 characters')
+            .max(50, 'Number must be less than 50 characters')
+    });
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="text" placeholder="Name" />
-            <input type="text" name="number" placeholder="Number" />
-            <button type="submit">Add contact</button>
-        </form>
+        <Formik
+            initialValues={{ name: '', number: '' }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { resetForm }) => {
+                const newContact = {
+                    id: nanoid(),
+                    name: values.name,
+                    number: values.number
+                };
+                onAdd(newContact);
+                resetForm();
+            }}
+        >
+            <Form className={css.formInputs}>
+                <div className={css.nameNumber}>
+                    <label className={css.wordsOnInputs} htmlFor="name">Name</label>
+                    <Field className={css.infoField} type="text" id="name" name="name" />
+                    <ErrorMessage className={css.warningMessage} name="name" component="div" />
+                </div>
+                <div className={css.nameNumber}>
+                    <label className={css.wordsOnInputs} htmlFor="number">Number</label>
+                    <Field className={css.infoField} type="text" id="number" name="number" />
+                    <ErrorMessage className={css.warningMessage} name="number" component="div" />
+                </div>
+                <button className={css.buttonAddContact} type="submit">Add contact</button>
+            </Form>
+        </Formik>
     );
-}
+};
 
 export default ContactForm;
-

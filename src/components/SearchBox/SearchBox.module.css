@@ -1,0 +1,9 @@
+.paragraphSearch {
+    text-align: left;
+    margin: 30px auto 0;
+    color: black;
+}
+.inputSearch {
+    width: -moz-available;
+    height: 25px;
+}
